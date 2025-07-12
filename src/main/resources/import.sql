@@ -1,0 +1,4 @@
+-- Insere algumas tarefas de exemplo
+INSERT INTO tasks (title, description, due_date, completed, created_at, updated_at) VALUES ('Aprender perfis Spring', 'Detalhar o uso de application.properties e perfis.', '2025-07-25', FALSE, NOW(), NOW());
+INSERT INTO tasks (title, description, due_date, completed, created_at, updated_at) VALUES ('Configurar H2', 'Garantir que o console e as conexões funcionam.', '2025-07-18', TRUE, NOW(), NOW());
+INSERT INTO tasks (title, description, due_date, completed, created_at, updated_at) VALUES ('Implementar CRUD de Tarefas', 'Criar endpoints para todas as operações.', '2025-08-01', FALSE, NOW(), NOW());
