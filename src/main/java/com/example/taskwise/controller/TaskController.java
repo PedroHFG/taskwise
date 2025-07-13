@@ -5,6 +5,8 @@ import com.example.taskwise.dto.TaskResponseDTO;
 import com.example.taskwise.service.TaskService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -28,8 +30,8 @@ public class TaskController {
     }
 
     @GetMapping
-    public ResponseEntity<List<TaskResponseDTO>> getAllTasks() {
-        List<TaskResponseDTO> tasks = taskService.getAllTasks();
+    public ResponseEntity<Page<TaskResponseDTO>> getAllTasks(Pageable pageable) {
+        Page<TaskResponseDTO> tasks = taskService.getAllTasks(pageable);
         return ResponseEntity.ok(tasks);
     }
 

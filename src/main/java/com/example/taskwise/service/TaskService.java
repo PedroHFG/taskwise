@@ -6,6 +6,8 @@ import com.example.taskwise.exception.ResourceNotFoundException;
 import com.example.taskwise.model.Task;
 import com.example.taskwise.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,9 +36,9 @@ public class TaskService {
     }
 
     @Transactional(readOnly = true)
-    public List<TaskResponseDTO> getAllTasks() {
-        List<Task> tasks = taskRepository.findAll();
-        return tasks.stream().map(x -> new TaskResponseDTO(x)).collect(Collectors.toList());
+    public Page<TaskResponseDTO> getAllTasks(Pageable pageable) {
+        Page<Task> tasksPage = taskRepository.findAll(pageable);
+        return tasksPage.map(TaskResponseDTO::new);
     }
 
     @Transactional(readOnly = true)
