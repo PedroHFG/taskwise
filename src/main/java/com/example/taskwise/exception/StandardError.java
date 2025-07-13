@@ -1,9 +1,12 @@
 package com.example.taskwise.exception;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.Instant;
 
 public class StandardError {
 
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "UTC")
     private Instant timestamp;
     private Integer status;
     private String error;
