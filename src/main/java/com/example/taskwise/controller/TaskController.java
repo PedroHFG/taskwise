@@ -32,4 +32,22 @@ public class TaskController {
         List<TaskResponseDTO> tasks = taskService.getAllTasks();
         return ResponseEntity.ok(tasks);
     }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<TaskResponseDTO> getTaskById(@PathVariable Long id) {
+        TaskResponseDTO task = taskService.findById(id);
+        return ResponseEntity.ok(task);
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<TaskResponseDTO> updateTask(@PathVariable Long id, @Valid @RequestBody TaskRequestDTO taskRequestDTO) {
+        TaskResponseDTO updatedTask = taskService.updateTask(id, taskRequestDTO);
+        return ResponseEntity.ok(updatedTask);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
+        taskService.deleteTask(id);
+        return ResponseEntity.noContent().build();
+    }
 }
