@@ -84,5 +84,9 @@ public class TaskService {
         if (taskRequestDTO.getDueDate() != null) {
             entity.setDueDate(taskRequestDTO.getDueDate());
         }
+
+        if (taskRequestDTO.getCompleted() != null) {
+            entity.setCompleted(taskRequestDTO.getCompleted());
+        }
     }
 }

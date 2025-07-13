@@ -15,14 +15,17 @@ public class TaskRequestDTO {
     @NotNull(message = "A data de vencimento não pode ser nula.")
     private LocalDate dueDate;
 
+    private Boolean completed;
+
     public TaskRequestDTO() {
 
     }
 
-    public TaskRequestDTO(String title, String description, LocalDate dueDate) {
+    public TaskRequestDTO(String title, String description, LocalDate dueDate, Boolean completed) {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
+        this.completed = completed;
     }
 
     public String getTitle() {
@@ -47,5 +50,13 @@ public class TaskRequestDTO {
 
     public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
+    }
+
+    public Boolean getCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(Boolean completed) {
+        this.completed = completed;
     }
 }
