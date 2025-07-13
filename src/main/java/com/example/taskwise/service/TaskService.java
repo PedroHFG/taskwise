@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,8 +37,8 @@ public class TaskService {
     }
 
     @Transactional(readOnly = true)
-    public Page<TaskResponseDTO> getAllTasks(Pageable pageable) {
-        Page<Task> tasksPage = taskRepository.findAll(pageable);
+    public Page<TaskResponseDTO> getAllTasks(Boolean completed, String title, LocalDate dueDate, Pageable pageable) {
+        Page<Task> tasksPage = taskRepository.findTaskWithFilters(completed, title, dueDate, pageable);
         return tasksPage.map(TaskResponseDTO::new);
     }
 
