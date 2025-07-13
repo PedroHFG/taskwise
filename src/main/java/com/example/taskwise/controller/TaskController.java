@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -30,8 +31,12 @@ public class TaskController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<TaskResponseDTO>> getAllTasks(Pageable pageable) {
-        Page<TaskResponseDTO> tasks = taskService.getAllTasks(pageable);
+    public ResponseEntity<Page<TaskResponseDTO>> getAllTasks(
+            @RequestParam(value = "completed", required = false) Boolean completed,
+            @RequestParam(value = "title", required = false) String title,
+            @RequestParam(value = "dueDate", required = false) LocalDate dueDate,
+            Pageable pageable) {
+        Page<TaskResponseDTO> tasks = taskService.getAllTasks(completed, title, dueDate, pageable);
         return ResponseEntity.ok(tasks);
     }
 
