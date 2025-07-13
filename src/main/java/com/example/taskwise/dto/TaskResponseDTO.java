@@ -1,7 +1,7 @@
 package com.example.taskwise.dto;
 
 import com.example.taskwise.model.Task;
-import jakarta.persistence.Column;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -13,7 +13,11 @@ public class TaskResponseDTO {
     private String description;
     private LocalDate dueDate;
     private Boolean completed;
+
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "UTC")
     private Instant createdAt;
+
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "UTC")
     private Instant updatedAt;
 
     public TaskResponseDTO() {
