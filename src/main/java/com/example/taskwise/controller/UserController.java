@@ -3,6 +3,7 @@ package com.example.taskwise.controller;
 import com.example.taskwise.dto.UserRegistrationDTO;
 import com.example.taskwise.dto.UserResponseDTO;
 import com.example.taskwise.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +22,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public ResponseEntity<UserResponseDTO> registerNewUser(@RequestBody UserRegistrationDTO userRegistrationDTO) {
+    public ResponseEntity<UserResponseDTO> registerNewUser(@Valid @RequestBody UserRegistrationDTO userRegistrationDTO) {
         UserResponseDTO newUser = userService.registerNewUser(userRegistrationDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(newUser.getId()).toUri();
