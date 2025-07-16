@@ -1,3 +1,7 @@
+-- Roles
+INSERT INTO tb_role (authority) VALUES ('ROLE_USER');
+INSERT INTO tb_role (authority) VALUES ('ROLE_ADMIN')
+
 -- Tarefas Concluídas
 INSERT INTO tasks (title, description, due_date, completed, created_at, updated_at) VALUES ('Revisar código do projeto X', 'Fazer uma revisão completa das últimas features implementadas.', '2025-07-05', TRUE, NOW(), NOW());
 INSERT INTO tasks (title, description, due_date, completed, created_at, updated_at) VALUES ('Organizar arquivos de impostos', 'Digitalizar e categorizar todos os documentos fiscais do ano.', '2025-06-20', TRUE, NOW(), NOW());
