@@ -1,12 +1,17 @@
 package com.example.taskwise.dto;
 
+import com.example.taskwise.model.Role;
 import com.example.taskwise.model.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserResponseDTO {
 
     private Long id;
     private String name;
     private String email;
+    private List<RoleDTO> roles =new ArrayList<>();
 
     public  UserResponseDTO() {
 
@@ -22,6 +27,10 @@ public class UserResponseDTO {
         this.id = entity.getId();
         this.name = entity.getName();
         this.email = entity.getEmail();
+
+        for (Role role : entity.getRoles()) {
+            roles.add(new RoleDTO(role));
+        }
     }
 
     public Long getId() {
@@ -46,5 +55,9 @@ public class UserResponseDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<RoleDTO> getRoles() {
+        return roles;
     }
 }
