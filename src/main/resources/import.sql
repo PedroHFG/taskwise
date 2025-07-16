@@ -3,8 +3,8 @@ INSERT INTO tb_role (authority) VALUES ('ROLE_USER');
 INSERT INTO tb_role (authority) VALUES ('ROLE_ADMIN')
 
 -- Users
-INSERT INTO tb_user (name, email, password) VALUES ('Alex', 'alex@gmail.com', '123456')
-INSERT INTO tb_user (name, email, password) VALUES ('Maria', 'maria@gmail.com', '123456')
+INSERT INTO tb_user (name, email, password) VALUES ('Alex', 'alex@gmail.com', '$2a$12$nAYLC6f5cbjnG.Cc0fxCEO3ZAC1UnbuuP91UUAg4p9wHYlAL4tNQi')
+INSERT INTO tb_user (name, email, password) VALUES ('Maria', 'maria@gmail.com', '$2a$12$nAYLC6f5cbjnG.Cc0fxCEO3ZAC1UnbuuP91UUAg4p9wHYlAL4tNQi')
 
 
 -- Users - Roles
