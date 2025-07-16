@@ -2,6 +2,16 @@
 INSERT INTO tb_role (authority) VALUES ('ROLE_USER');
 INSERT INTO tb_role (authority) VALUES ('ROLE_ADMIN')
 
+-- Users
+INSERT INTO tb_user (name, email, password) VALUES ('Alex', 'alex@gmail.com', '123456')
+INSERT INTO tb_user (name, email, password) VALUES ('Maria', 'maria@gmail.com', '123456')
+
+
+-- Users - Roles
+INSERT INTO tb_user_role (user_id, role_id) VALUES (1, 1);
+INSERT INTO tb_user_role (user_id, role_id) VALUES (2, 1);
+INSERT INTO tb_user_role (user_id, role_id) VALUES (2, 2);
+
 -- Tarefas Concluídas
 INSERT INTO tasks (title, description, due_date, completed, created_at, updated_at) VALUES ('Revisar código do projeto X', 'Fazer uma revisão completa das últimas features implementadas.', '2025-07-05', TRUE, NOW(), NOW());
 INSERT INTO tasks (title, description, due_date, completed, created_at, updated_at) VALUES ('Organizar arquivos de impostos', 'Digitalizar e categorizar todos os documentos fiscais do ano.', '2025-06-20', TRUE, NOW(), NOW());
