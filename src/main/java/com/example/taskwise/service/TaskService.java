@@ -4,6 +4,7 @@ import com.example.taskwise.dto.TaskRequestDTO;
 import com.example.taskwise.dto.TaskResponseDTO;
 import com.example.taskwise.exception.ResourceNotFoundException;
 import com.example.taskwise.model.Task;
+import com.example.taskwise.model.User;
 import com.example.taskwise.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,14 +13,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class TaskService {
 
     @Autowired
     private TaskRepository taskRepository;
+
+    @Autowired
+    private UserService userService;
 
     @Transactional
     public TaskResponseDTO createTask(TaskRequestDTO taskRequestDTO) {
@@ -30,6 +32,9 @@ public class TaskService {
 
         Task entity = new Task();
         copyDtoToEntity(taskRequestDTO, entity);
+
+        User userLogged = userService.authenticated();
+        entity.setUser(userLogged);
 
         entity = taskRepository.save(entity);
 
