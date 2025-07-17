@@ -14,6 +14,8 @@ public class TaskResponseDTO {
     private LocalDate dueDate;
     private Boolean completed;
 
+    private UserMinDTO user;
+
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "UTC")
     private Instant createdAt;
 
@@ -40,6 +42,7 @@ public class TaskResponseDTO {
         this.description = entity.getDescription();
         this.dueDate = entity.getDueDate();
         this.completed = entity.getCompleted();
+        this.user = (entity.getUser() != null) ? new UserMinDTO(entity.getUser()) : null;
         this.createdAt = entity.getCreatedAt();
         this.updatedAt = entity.getUpdatedAt();
     }
@@ -82,6 +85,14 @@ public class TaskResponseDTO {
 
     public void setCompleted(Boolean completed) {
         this.completed = completed;
+    }
+
+    public UserMinDTO getUser() {
+        return user;
+    }
+
+    public void setUser(UserMinDTO user) {
+        this.user = user;
     }
 
     public Instant getCreatedAt() {
