@@ -25,6 +25,10 @@ public class Task {
     @Column(nullable = false)
     private Boolean completed = false;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @Column(name = "created_at", updatable = false, columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant createdAt;
 
@@ -35,11 +39,12 @@ public class Task {
 
     }
 
-    public Task(Long id, String title, String description, LocalDate dueDate) {
+    public Task(Long id, String title, String description, LocalDate dueDate, User user) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
+        this.user = user;
     }
 
     public Long getId() {
@@ -80,6 +85,14 @@ public class Task {
 
     public void setCompleted(Boolean completed) {
         this.completed = completed;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Instant getCreatedAt() {
