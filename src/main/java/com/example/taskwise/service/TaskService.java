@@ -23,6 +23,9 @@ public class TaskService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AuthService authService;
+
     @Transactional
     public TaskResponseDTO createTask(TaskRequestDTO taskRequestDTO) {
 
@@ -43,7 +46,16 @@ public class TaskService {
 
     @Transactional(readOnly = true)
     public Page<TaskResponseDTO> getAllTasks(Boolean completed, String title, LocalDate dueDate, Pageable pageable) {
-        Page<Task> tasksPage = taskRepository.findTaskWithFilters(completed, title, dueDate, pageable);
+        User currentUser = userService.authenticated();
+        Page<Task> tasksPage;
+
+        if (currentUser.hasRole("ROLE_ADMIN")) {
+            tasksPage = taskRepository.findTaskWithFilters(completed, title, dueDate, pageable);
+        }
+        else {
+            tasksPage = taskRepository.findTaskByUserIdAndFilters(currentUser.getId(), completed, title, dueDate, pageable);
+        }
+
         return tasksPage.map(TaskResponseDTO::new);
     }
 
@@ -51,6 +63,7 @@ public class TaskService {
     public TaskResponseDTO findById(Long id) {
         Task task = taskRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Tarefa não encontrada com ID: " + id));
+        authService.validateSelfOrAdmin(task.getUser().getId());
         return new TaskResponseDTO(task);
     }
 
@@ -59,6 +72,8 @@ public class TaskService {
         // Primeiro, verifica se a tarefa existe
         Task existingTask = taskRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Tarefa não encontrada com ID: " + id));
+
+        authService.validateSelfOrAdmin(existingTask.getUser().getId());
 
         // Validação de título duplicado, mas permitindo que a própria tarefa mantenha seu título
         if (taskRequestDTO.getTitle() != null && !taskRequestDTO.getTitle().equals(existingTask.getTitle())) {
@@ -79,6 +94,9 @@ public class TaskService {
         if (!taskRepository.existsById(id)) {
             throw new ResourceNotFoundException("Tarefa não encontrada com ID: " + id);
         }
+
+        Task task = taskRepository.getReferenceById(id);
+        authService.validateSelfOrAdmin(task.getUser().getId());
         taskRepository.deleteById(id);
     }
 

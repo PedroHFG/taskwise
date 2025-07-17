@@ -25,4 +25,18 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
             @Param("title") String title,
             @Param("dueDate") LocalDate dueDate,
             Pageable pageable);
+
+    @Query("""
+            SELECT obj FROM Task obj
+            WHERE (:completed IS NULL OR obj.completed = :completed)
+            AND (:title IS NULL OR LOWER(obj.title) LIKE LOWER(CONCAT('%', :title, '%')))
+            AND (:dueDate IS NULL OR obj.dueDate <= :dueDate)
+            AND (obj.user.id = :user_id)
+            """)
+    Page<Task> findTaskByUserIdAndFilters(
+            @Param("user_id") Long user_id,
+            @Param("completed") Boolean completed,
+            @Param("title") String title,
+            @Param("dueDate") LocalDate dueDate,
+            Pageable pageable);
 }
