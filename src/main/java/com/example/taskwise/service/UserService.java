@@ -88,4 +88,10 @@ public class UserService implements UserDetailsService {
             throw new UsernameNotFoundException("Usuário não encontrado");
         }
     }
+
+    @Transactional(readOnly = true)
+    public UserResponseDTO getMe() {
+        User me = authenticated();
+        return new UserResponseDTO(me);
+    }
 }
